@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathy Proficiency Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center; /* Default to center alignment */
+        }
+        h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+        .left-aligned {
+            text-align: left;
+        }
+        .right-aligned {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Where are you now when it comes to your level of proficiency in terms of empathy?</h2>
+        <div class="slider-container">
+            <input type="range" id="empathySlider" min="0" max="100" value="50">
+        </div>
+        <div class="labels">
+            <span>Novice</span>
+            <span>Intermediate</span>
+            <span>Mastery</span>
+        </div>
+        <div class="result" id="result">
+            <h3 id="levelTitle">Intermediate</h3>
+            <p id="levelDescription">I understand empathy is important to constructive relationships with colleagues, clients and family and I try to see things from others' perspectives.</p>
+        </div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('empathySlider');
+        const levelTitle = document.getElementById('levelTitle');
+        const levelDescription = document.getElementById('levelDescription');
+        const resultContainer = document.getElementById('result');
+
+        function updateLevel(value) {
+            let level, description, alignment;
+            if (value <= 33) {
+                level = "Novice";
+                description = "I can confuse empathy with sympathy and I'm not sure how it translates into productivity.";
+                alignment = 'left-aligned';
+            } else if (value <= 66) {
+                level = "Intermediate";
+                description = "I understand empathy is important to constructive relationships with colleagues, clients and family and I try to see things from others' perspectives.";
+                alignment = ''; // Center aligned by default
+            } else {
+                level = "Mastery";
+                description = "I actively seek to understand the thoughts and emotions of others and to adapt my behavior from their perspective and I can describe the positive impact empathy has on relationships and business outcomes.";
+                alignment = 'right-aligned';
+            }
+            levelTitle.textContent = level;
+            levelDescription.textContent = description;
+            resultContainer.className = 'result ' + alignment;
+        }
+
+        slider.addEventListener('input', (e) => updateLevel(e.target.value));
+        updateLevel(50); // Initialize to middle value
+    </script>
+</body>
+</html>
